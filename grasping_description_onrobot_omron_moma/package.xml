@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>grasping_description_onrobot_omron_moma</name>
+  <version>0.1.0</version>
+  <description>Combined Omron MoMa and OnRobot gripper descriptions</description>
+  <maintainer email="kalanaratnayake95@gmail.com">ubuntu</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>moma_description</exec_depend>
+  <exec_depend>onrobot_rg_description</exec_depend>
+  <exec_depend>onrobot_vg_description</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

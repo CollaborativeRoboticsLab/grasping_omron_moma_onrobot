@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="gripper" value="$(arg gripper)"/>
+  <group name="tmr_arm_with_base"><chain base_link="base" tip_link="tcp"/></group>
+  <group_state name="home" group="tmr_arm_with_base">
+    <joint name="joint_1" value="0"/><joint name="joint_2" value="0"/>
+    <joint name="joint_3" value="0"/><joint name="joint_4" value="0"/>
+    <joint name="joint_5" value="0"/><joint name="joint_6" value="0"/>
+  </group_state>
+  <xacro:if value="${gripper in ['rg2', 'rg6']}">
+    <group name="gripper">
+      <joint name="finger_joint"/>
+      <link name="left_outer_knuckle"/><link name="left_inner_knuckle"/><link name="left_inner_finger"/>
+      <link name="right_outer_knuckle"/><link name="right_inner_knuckle"/><link name="right_inner_finger"/>
+    </group>
+    <group_state name="open" group="gripper"><joint name="finger_joint" value="${-0.558505 if gripper == 'rg2' else -0.628319}"/></group_state>
+    <group_state name="closed" group="gripper"><joint name="finger_joint" value="${0.785398 if gripper == 'rg2' else 0.628319}"/></group_state>
+    <passive_joint name="left_inner_knuckle_joint"/><passive_joint name="left_inner_finger_joint"/>
+    <passive_joint name="right_outer_knuckle_joint"/><passive_joint name="right_inner_knuckle_joint"/>
+    <passive_joint name="right_inner_finger_joint"/>
+    <disable_collisions link1="${'onrobot_' + gripper + '_base_link'}" link2="left_outer_knuckle" reason="Adjacent"/>
+    <disable_collisions link1="${'onrobot_' + gripper + '_base_link'}" link2="left_inner_knuckle" reason="Adjacent"/>
+    <disable_collisions link1="${'onrobot_' + gripper + '_base_link'}" link2="right_outer_knuckle" reason="Adjacent"/>
+    <disable_collisions link1="${'onrobot_' + gripper + '_base_link'}" link2="right_inner_knuckle" reason="Adjacent"/>
+    <disable_collisions link1="left_outer_knuckle" link2="left_inner_finger" reason="Adjacent"/>
+    <disable_collisions link1="left_inner_knuckle" link2="left_inner_finger" reason="Adjacent"/>
+    <disable_collisions link1="left_outer_knuckle" link2="left_inner_knuckle" reason="Default"/>
+    <disable_collisions link1="right_outer_knuckle" link2="right_inner_finger" reason="Adjacent"/>
+    <disable_collisions link1="right_inner_knuckle" link2="right_inner_finger" reason="Adjacent"/>
+    <disable_collisions link1="right_outer_knuckle" link2="right_inner_knuckle" reason="Default"/>
+  </xacro:if>
+  <xacro:if value="${gripper == 'vg10'}">
+    <disable_collisions link1="onrobot_vg10_base_link" link2="suction" reason="Adjacent"/>
+  </xacro:if>
+  <xacro:if value="${gripper == 'vgc10'}">
+    <disable_collisions link1="onrobot_vgc10_base_link" link2="suction1" reason="Adjacent"/>
+    <disable_collisions link1="onrobot_vgc10_base_link" link2="suction2" reason="Adjacent"/>
+    <disable_collisions link1="onrobot_vgc10_base_link" link2="suction3" reason="Adjacent"/>
+    <disable_collisions link1="onrobot_vgc10_base_link" link2="suction4" reason="Adjacent"/>
+  </xacro:if>
+  <disable_collisions link1="ld250_main_body" link2="controlbox" reason="Adjacent"/>
+  <disable_collisions link1="controlbox" link2="link_0" reason="Adjacent"/>
+  <disable_collisions link1="link_0" link2="link_1" reason="Adjacent"/>
+  <disable_collisions link1="link_1" link2="link_2" reason="Adjacent"/>
+  <disable_collisions link1="link_2" link2="link_3" reason="Adjacent"/>
+  <disable_collisions link1="link_3" link2="link_4" reason="Adjacent"/>
+  <disable_collisions link1="link_4" link2="link_5" reason="Adjacent"/>
+  <disable_collisions link1="link_5" link2="link_6" reason="Adjacent"/>
+  <disable_collisions link1="flange" link2="${'onrobot_' + gripper + '_base_link'}" reason="Adjacent"/>
+</robot>

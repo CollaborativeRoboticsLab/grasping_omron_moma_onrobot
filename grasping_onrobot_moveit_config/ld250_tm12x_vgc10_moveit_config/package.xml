@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ld250_tm12x_vgc10_moveit_config</name>
+  <version>0.1.0</version>
+  <description>MoveIt configuration for the Omron MoMa with OnRobot VGC10</description>
+  <maintainer email="kalanaratnayake95@gmail.com">ubuntu</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ld250_tm12x_onrobot_moveit_config</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

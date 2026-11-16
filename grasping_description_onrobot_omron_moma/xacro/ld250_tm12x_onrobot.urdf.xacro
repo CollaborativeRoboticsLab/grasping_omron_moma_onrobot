@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ld250_tm12x_onrobot">
+  <xacro:arg name="gripper" default="rg2"/>
+  <xacro:arg name="mount_xyz" default="0 0 0"/>
+  <xacro:arg name="mount_rpy" default="0 0 0"/>
+  <xacro:arg name="tcp_xyz" default="0 0 0"/>
+  <xacro:arg name="tcp_rpy" default="0 0 0"/>
+  <xacro:property name="gripper" value="$(arg gripper)"/>
+  <material name="onrobot_rg_light_gray"><color rgba="0.8 0.8 0.8 1"/></material>
+  <material name="onrobot_rg_black"><color rgba="0.1 0.1 0.1 1"/></material>
+  <material name="onrobot_vg_body_gray"><color rgba="0.8 0.8 0.8 1"/></material>
+  <material name="onrobot_vg_cup_gray"><color rgba="0.9 0.9 0.9 1"/></material>
+
+  <xacro:include filename="$(find moma_description)/xacro/ld250_tm12x_macro.urdf.xacro"/>
+  <xacro:ld250_tm12x_robot ns="" arm_prefix="" base_prefix="" arm_color="none"
+    trans_hw_iface="hardware_interface/PositionJointInterface" arm_base_link="base_link"
+    controlbox_mesh_pkg="moma_description"/>
+
+  <xacro:if value="${gripper == 'rg2'}">
+    <xacro:include filename="$(find onrobot_rg_description)/urdf/onrobot_rg2_model_macro.xacro"/>
+    <xacro:macro name="onrobot_rg2_base_link" params="prefix">
+      <link name="${prefix}onrobot_rg2_base_link">
+        <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <mass value="0.7"/>
+          <inertia ixx="1.0E-03" ixy="1.0E-06" ixz="1.0E-06" iyy="1.0E-03" iyz="1.0E-06" izz="1.0E-03"/>
+        </inertial>
+        <visual><geometry><mesh filename="package://onrobot_rg_description/meshes/rg2/visual/base_link.stl"/></geometry><material name="onrobot_rg_light_gray"/></visual>
+        <collision><geometry><mesh filename="package://onrobot_rg_description/meshes/rg2/collision/base_link.stl"/></geometry></collision>
+      </link>
+      <gazebo reference="${prefix}onrobot_rg2_base_link"><mu1>1.0</mu1><mu2>1.0</mu2><selfCollide>false</selfCollide><material>Gazebo/Grey</material></gazebo>
+    </xacro:macro>
+    <xacro:onrobot_rg2 prefix=""/>
+  </xacro:if>
+  <xacro:if value="${gripper == 'rg6'}">
+    <xacro:include filename="$(find onrobot_rg_description)/urdf/onrobot_rg6_model_macro.xacro"/>
+    <xacro:onrobot_rg6 prefix=""/>
+  </xacro:if>
+  <xacro:if value="${gripper == 'vg10'}">
+    <xacro:include filename="$(find onrobot_vg_description)/urdf/onrobot_vg10_model_macro.xacro"/>
+    <xacro:onrobot_vg10 prefix=""/>
+  </xacro:if>
+  <xacro:if value="${gripper == 'vgc10'}">
+    <xacro:include filename="$(find onrobot_vg_description)/urdf/onrobot_vgc10_4cups_model_macro.xacro"/>
+    <xacro:onrobot_vgc10 prefix=""/>
+  </xacro:if>
+  <xacro:unless value="${gripper in ['rg2', 'rg6', 'vg10', 'vgc10']}">
+    <xacro:unsupported_onrobot_gripper/>
+  </xacro:unless>
+
+  <joint name="onrobot_mount_joint" type="fixed">
+    <parent link="flange"/>
+    <child link="${'onrobot_' + gripper + '_base_link'}"/>
+    <origin xyz="$(arg mount_xyz)" rpy="$(arg mount_rpy)"/>
+  </joint>
+  <link name="tcp"/>
+  <joint name="onrobot_tcp_joint" type="fixed">
+    <parent link="${'onrobot_' + gripper + '_base_link'}"/>
+    <child link="tcp"/>
+    <origin xyz="$(arg tcp_xyz)" rpy="$(arg tcp_rpy)"/>
+  </joint>
+</robot>

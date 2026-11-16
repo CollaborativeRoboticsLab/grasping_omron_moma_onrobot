@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>grasping_onrobot_omron_moma</name>
+  <version>0.1.0</version>
+  <description>Gazebo launch and configuration for Omron MoMa with OnRobot tools</description>
+  <maintainer email="kalanaratnayake95@gmail.com">ubuntu</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>grasping_control</exec_depend>
+  <exec_depend>grasping_description_onrobot_omron_moma</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <exec_depend>joint_trajectory_controller</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ld250_tm12x_rg2_moveit_config</exec_depend>
+  <exec_depend>ld250_tm12x_rg6_moveit_config</exec_depend>
+  <exec_depend>ld250_tm12x_vg10_moveit_config</exec_depend>
+  <exec_depend>ld250_tm12x_vgc10_moveit_config</exec_depend>
+  <exec_depend>onrobot_control</exec_depend>
+  <exec_depend>onrobot_gazebo</exec_depend>
+  <exec_depend>position_controllers</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
